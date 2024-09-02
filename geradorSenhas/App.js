@@ -1,11 +1,13 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Modal } from 'react-native';
 import { useState } from 'react';
+import { ModalPassword } from './src/components/modal';
 
 
 let charset = "abcdefghijklmnopqrstuvwxyz!#$&%0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 export default function App() {
   const [senhaGerada, setSenhaGerada] = useState("")
+  const [modalVisible, setModalVisible] = useState(false)
 
   function gerarSenha() {
     let senha = "";
@@ -14,6 +16,7 @@ export default function App() {
       senha += charset.charAt(Math.floor(Math.random() * n))
     }
     setSenhaGerada(senha)
+    setModalVisible(true)
 
   }
 
@@ -27,6 +30,9 @@ export default function App() {
       <TouchableOpacity style={styles.button} onPress={gerarSenha}>
         <Text style={styles.textButton}>Gerar senha</Text>
       </TouchableOpacity>
+      <Modal visible={modalVisible} animationType='fade' transparent={true}>
+        <ModalPassword />
+      </Modal>
       <Text style={styles.genText}>Senha Gerada: {senhaGerada}</Text>
     </View>
   );
@@ -55,7 +61,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom:20
+    marginBottom: 20
   },
   textButton: {
     color: "#FFF",
@@ -63,10 +69,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
 
   },
-  genText:{
-    fontSize:16,
-    fontWeight:"bold",
-    color:"#333",
+  genText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#333",
 
   }
 
