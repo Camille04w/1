@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Modal } from 'react-native';
-import { useState } from 'react';
+import { useState } from 'react'; //muda o estado de uma variavel
+
+//import do código
 import { ModalPassword } from './src/components/modal';
 
 
