@@ -1,15 +1,21 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Modal } from 'react-native';
 import { useState } from 'react'; //muda o estado de uma variavel
 
-//import do código
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack'
+
+import SavedPasswords from './src/components/screens/SavedPasswords';
 import { ModalPassword } from './src/components/modal';
 
 
 let charset = "abcdefghijklmnopqrstuvwxyz!#$&%0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-export default function App() {
+const Stack = createStackNavigator();
+
+function HomeScreen({ navigation }) {
   const [senhaGerada, setSenhaGerada] = useState("")
   const [modalVisible, setModalVisible] = useState(false)
+  const [savedPasswords, setSavedPasswords] = useState([])
 
   function gerarSenha() {
     let senha = "";
@@ -19,7 +25,15 @@ export default function App() {
     }
     setSenhaGerada(senha)
     setModalVisible(true)
+  }
 
+  function salvarSenha() {
+    setSavedPasswords(prevPasswords => {
+      const updatedPasswords = [...prevPasswords, senhaGerada];
+      setModalVisible(false);
+      navigation.navigate('SavedPasswords', { savedPasswords: updatedPasswords });
+      return updatedPasswords;
+    })
   }
 
   return (
@@ -32,11 +46,24 @@ export default function App() {
       <TouchableOpacity style={styles.button} onPress={gerarSenha}>
         <Text style={styles.textButton}>Gerar senha</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={salvarSenha}>
+        <Text style={styles.textButton}>Senhas Salvas</Text>
+      </TouchableOpacity>
       <Modal visible={modalVisible} animationType='fade' transparent={true}>
-        <ModalPassword senha={senhaGerada} fecharModal={() => setModalVisible(false)} />
+        <ModalPassword senha={senhaGerada} fecharModal={() => setModalVisible(false)} salvarSenha={salvarSenha} />
       </Modal>
     </View>
   );
+}
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="SavedPasswords" component={SavedPasswords} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -46,9 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  logo: {
-    marginBottom: 20,
-  },
+
   title: {
     fontSize: 28,
     fontWeight: "bold",
@@ -75,6 +100,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
 
-  }
+  },
+  passwordContainer:{
+    backgroundColor:"e0e0e0",
+    padding:10,
+    marginVertical:5,
+    borderRadius:5,
+    width:"100%",
+   },
+   passwordText:{
+    fontSize:16,
+    color:"#000",
+   }
 
 });
