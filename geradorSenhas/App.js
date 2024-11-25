@@ -39,14 +39,17 @@ function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Image
-        source={require("./src/img/logolock.png")}
+        source={require("./src/img/logo.png")}
         style={styles.logo}
       />
-      <Text style={styles.title}>LockGen</Text>
+      <Text style={styles.title}>Senha Segura</Text>
       <TouchableOpacity style={styles.button} onPress={gerarSenha}>
         <Text style={styles.textButton}>Gerar senha</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={salvarSenha}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('SavedPasswords', { savedPasswords })}
+      >
         <Text style={styles.textButton}>Senhas Salvas</Text>
       </TouchableOpacity>
       <Modal visible={modalVisible} animationType='fade' transparent={true}>
@@ -69,9 +72,13 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffc5',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  logo: {
+    width: 200,
+    height:200,
   },
 
   title: {
@@ -81,7 +88,7 @@ const styles = StyleSheet.create({
 
   },
   button: {
-    backgroundColor: "#333",
+    backgroundColor: "#ffff00",
     width: '70%',
     height: 50,
     borderRadius: 8,
@@ -90,7 +97,7 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   textButton: {
-    color: "#FFF",
+    color: "#000",
     fontWeight: "bold",
     fontSize: 18,
 
@@ -101,16 +108,16 @@ const styles = StyleSheet.create({
     color: "#333",
 
   },
-  passwordContainer:{
-    backgroundColor:"e0e0e0",
-    padding:10,
-    marginVertical:5,
-    borderRadius:5,
-    width:"100%",
-   },
-   passwordText:{
-    fontSize:16,
-    color:"#000",
-   }
+  passwordContainer: {
+    backgroundColor: "e0e0e0",
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+    width: "100%",
+  },
+  passwordText: {
+    fontSize: 16,
+    color: "#000",
+  }
 
 });

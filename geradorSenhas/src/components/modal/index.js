@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(24,24,24,0.6)"
     },
     content: {
-        backgroundColor: "#FFF",
+        backgroundColor: "#ffffc5",
         width: "85%",
         paddingTop: 24,
         paddingBottom: 24,
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         paddingBottom: 18
     },
     innerPassword: {
-        backgroundColor: "#e6e6e6",
+        backgroundColor: "#FFF",
         width: "90%",
         padding: 14,
         borderRadius: 8,
@@ -87,10 +87,10 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         padding: 8,
-        backgroundColor: "#333",
+        backgroundColor: "#ffff00",
         borderRadius: 8
     },
     buttonTextSave: {
-        color: "#FFF"
+        color: "#000"
     }
 })
